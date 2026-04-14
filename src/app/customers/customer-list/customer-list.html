@@ -1,0 +1,73 @@
+<div class="page-container">
+    <div class="header-actions">
+        <div class="title-area">
+            <h1>Customers</h1>
+            <p class="subtitle">Manage orders and measurements</p>
+        </div>
+        <div class="action-area">
+            <button mat-raised-button color="primary" class="new-btn" routerLink="/customers/new">
+                <mat-icon>add</mat-icon> New Customer
+            </button>
+        </div>
+    </div>
+
+    <mat-card class="list-card glass-card">
+        <div class="filter-header">
+            <mat-form-field appearance="outline" class="search-field">
+                <mat-label>Search matching names or phone</mat-label>
+                <mat-icon matPrefix>search</mat-icon>
+                <input matInput (input)="onSearchChange($event)" placeholder="E.g. John Doe">
+            </mat-form-field>
+        </div>
+
+        <div class="table-responsive">
+            <table class="customer-table" *ngIf="filteredCustomers.length > 0; else noData">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Delivery Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let customer of filteredCustomers" class="table-row">
+                        <td>
+                            <div class="customer-name-cell">
+                                <div class="avatar">{{ customer.name.charAt(0) | uppercase }}</div>
+                                <span>{{ customer.name }}</span>
+                            </div>
+                        </td>
+                        <td>{{ customer.phoneNumber }}</td>
+                        <td>
+                            <span class="delivery-badge" [class.urgent]="customer.deliveryDate | date:'short'">
+                                <mat-icon inline>event</mat-icon>
+                                {{ customer.deliveryDate | date:'mediumDate' }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <button mat-icon-button color="primary" [routerLink]="['/customers', customer.id]"
+                                    matTooltip="View Details">
+                                    <mat-icon>visibility</mat-icon>
+                                </button>
+                                <button mat-icon-button color="accent"
+                                    [routerLink]="['/customers', customer.id, 'edit']" matTooltip="Edit Customer">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <ng-template #noData>
+            <div class="empty-state">
+                <mat-icon>person_search</mat-icon>
+                <h3>No customers found</h3>
+                <p>Try adjusting your search or add a new customer.</p>
+            </div>
+        </ng-template>
+    </mat-card>
+</div>

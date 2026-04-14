@@ -1,0 +1,16 @@
+<mat-toolbar color="primary" class="header-toolbar">
+    <div class="logo-container" routerLink="/">
+        <mat-icon class="logo-icon">content_cut</mat-icon>
+        <span class="logo-text">Tailor's FineStitch</span>
+    </div>
+    <span class="spacer"></span>
+    <div class="nav-links">
+        <button mat-button routerLink="/" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}">Home</button>
+        <button mat-button routerLink="/dashboard" routerLinkActive="active">Dashboard</button>
+        <button mat-button routerLink="/customers" routerLinkActive="active">Customers</button>
+        <button mat-raised-button color="accent" routerLink="/customers/new" class="add-btn">
+            <mat-icon>person_add</mat-icon> Add Customer
+        </button>
+    </div>
+</mat-toolbar>

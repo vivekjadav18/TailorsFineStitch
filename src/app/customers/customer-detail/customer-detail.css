@@ -1,0 +1,214 @@
+.page-container {
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.title-with-back {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.title-with-back h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.back-btn {
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.detail-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.info-card {
+    padding: 1.5rem;
+    border: none;
+}
+
+.countdown-card {
+    background: linear-gradient(135deg, #e8eaf6, #c5cae9);
+    color: #3f51b5;
+    border-radius: 16px;
+}
+
+.countdown-card.urgent {
+    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+    color: #e65100;
+}
+
+.countdown-card.overdue {
+    background: linear-gradient(135deg, #ffebee, #ffcdd2);
+    color: #c62828;
+}
+
+.countdown-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem !important;
+}
+
+.countdown-info h3 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+    color: inherit;
+}
+
+.countdown-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    font-family: 'Outfit', sans-serif;
+}
+
+.delivery-date-text {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.countdown-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    opacity: 0.2;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.measurements-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.measurement-item {
+    display: flex;
+    flex-direction: column;
+    background: rgba(63, 81, 181, 0.05);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.m-label {
+    font-size: 0.85rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.m-value {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.additional-notes {
+    background: #fcfcfc;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #3f51b5;
+}
+
+.notes-text {
+    line-height: 1.6;
+    color: #555;
+}
+
+.gallery-column {
+    height: 100%;
+}
+
+.gallery-card {
+    padding: 1.5rem;
+    height: 100%;
+    border: none;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.gallery-item {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.empty-gallery {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #aaa;
+}
+
+.empty-gallery mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+@media (max-width: 900px) {
+    .layout-grid {
+        grid-template-columns: 1fr;
+    }
+}

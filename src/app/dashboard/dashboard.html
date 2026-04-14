@@ -1,0 +1,62 @@
+<div class="dashboard-container">
+    <div class="header-section">
+        <h1>Dashboard</h1>
+        <p class="subtitle">Overview of your tailor shop operations</p>
+    </div>
+
+    <div class="stats-grid">
+        <mat-card class="stat-card glass-card">
+            <div class="stat-content">
+                <div class="stat-info">
+                    <h3>Total Customers</h3>
+                    <div class="stat-value">{{ totalCustomers }}</div>
+                </div>
+                <div class="stat-icon bg-primary">
+                    <mat-icon>groups</mat-icon>
+                </div>
+            </div>
+        </mat-card>
+
+        <mat-card class="stat-card glass-card" routerLink="/customers/new">
+            <div class="stat-content click-area">
+                <div class="stat-info">
+                    <h3>Quick Action</h3>
+                    <div class="stat-value action-text">Add Customer</div>
+                </div>
+                <div class="stat-icon bg-accent">
+                    <mat-icon>person_add</mat-icon>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+
+    <div class="upcoming-section">
+        <h2>Upcoming Deliveries</h2>
+        <div class="deliveries-list" *ngIf="upcomingDeliveries.length > 0; else noDeliveries">
+            <mat-card *ngFor="let customer of upcomingDeliveries" class="delivery-card">
+                <mat-card-header>
+                    <div mat-card-avatar class="customer-avatar">
+                        {{ customer.name.charAt(0) | uppercase }}
+                    </div>
+                    <mat-card-title>{{ customer.name }}</mat-card-title>
+                    <mat-card-subtitle>{{ customer.phoneNumber }}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-divider></mat-divider>
+                <mat-card-actions>
+                    <div class="date-chip">
+                        <mat-icon inline>event</mat-icon>
+                        {{ customer.deliveryDate | date:'mediumDate' }}
+                    </div>
+                    <span class="spacer"></span>
+                    <button mat-button color="primary" [routerLink]="['/customers', customer.id]">View</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+        <ng-template #noDeliveries>
+            <div class="empty-state">
+                <mat-icon class="empty-icon">check_circle_outline</mat-icon>
+                <p>No upcoming deliveries found.</p>
+            </div>
+        </ng-template>
+    </div>
+</div>

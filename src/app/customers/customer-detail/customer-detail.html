@@ -1,0 +1,115 @@
+<div class="page-container" *ngIf="customer">
+    <div class="header-section">
+        <div class="title-with-back">
+            <button mat-icon-button routerLink="/customers" class="back-btn"><mat-icon>arrow_back</mat-icon></button>
+            <h1>{{ customer.name }}</h1>
+        </div>
+        <div class="action-buttons">
+            <button mat-stroked-button color="primary" [routerLink]="['/customers', customer.id, 'edit']">
+                <mat-icon>edit</mat-icon> Edit
+            </button>
+            <button mat-flat-button color="warn" (click)="deleteCustomer()">
+                <mat-icon>delete</mat-icon> Delete
+            </button>
+        </div>
+    </div>
+
+    <div class="layout-grid">
+        <!-- Left Column: Details -->
+        <div class="detail-column">
+
+            <!-- Delivery Countdown Card -->
+            <mat-card class="countdown-card" [class.urgent]="countdownDays <= 2" [class.overdue]="countdownDays < 0">
+                <mat-card-content class="countdown-content">
+                    <div class="countdown-info">
+                        <h3>Delivery Status</h3>
+                        <div class="countdown-value">{{ countdownText }}</div>
+                        <div class="delivery-date-text">Due on {{ customer.deliveryDate | date:'fullDate' }}</div>
+                    </div>
+                    <mat-icon class="countdown-icon">schedule</mat-icon>
+                </mat-card-content>
+            </mat-card>
+
+            <!-- Basic Info Card -->
+            <mat-card class="info-card glass-card">
+                <mat-card-header>
+                    <mat-card-title>Contact Information</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="info-row">
+                        <mat-icon color="primary">phone</mat-icon>
+                        <span>{{ customer.phoneNumber }}</span>
+                    </div>
+                    <div class="info-row">
+                        <mat-icon color="primary">location_on</mat-icon>
+                        <span>{{ customer.address }}</span>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <!-- Measurements Card -->
+            <mat-card class="info-card glass-card">
+                <mat-card-header>
+                    <mat-card-title>Measurements (in)</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="measurements-grid">
+                        <div class="measurement-item" *ngIf="customer.measurements.chest">
+                            <span class="m-label">Chest</span>
+                            <span class="m-value">{{ customer.measurements.chest }}</span>
+                        </div>
+                        <div class="measurement-item" *ngIf="customer.measurements.waist">
+                            <span class="m-label">Waist</span>
+                            <span class="m-value">{{ customer.measurements.waist }}</span>
+                        </div>
+                        <div class="measurement-item" *ngIf="customer.measurements.length">
+                            <span class="m-label">Length</span>
+                            <span class="m-value">{{ customer.measurements.length }}</span>
+                        </div>
+                        <div class="measurement-item" *ngIf="customer.measurements.shoulder">
+                            <span class="m-label">Shoulder</span>
+                            <span class="m-value">{{ customer.measurements.shoulder }}</span>
+                        </div>
+                    </div>
+
+                    <div class="additional-notes" *ngIf="customer.measurements.additionalInfo">
+                        <strong>Additional Info:</strong>
+                        <p>{{ customer.measurements.additionalInfo }}</p>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <!-- Order Notes -->
+            <mat-card class="info-card glass-card" *ngIf="customer.notes">
+                <mat-card-header>
+                    <mat-card-title>Order Notes</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <p class="notes-text">{{ customer.notes }}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <!-- Right Column: Gallery -->
+        <div class="gallery-column">
+            <mat-card class="gallery-card glass-card">
+                <mat-card-header>
+                    <mat-card-title>Reference Photos</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="gallery-grid" *ngIf="customer.photos && customer.photos.length > 0; else noPhotos">
+                        <div class="gallery-item" *ngFor="let photo of customer.photos">
+                            <img [src]="photo" alt="Customer reference photo">
+                        </div>
+                    </div>
+                    <ng-template #noPhotos>
+                        <div class="empty-gallery">
+                            <mat-icon>image_not_supported</mat-icon>
+                            <p>No photos uploaded for this order.</p>
+                        </div>
+                    </ng-template>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

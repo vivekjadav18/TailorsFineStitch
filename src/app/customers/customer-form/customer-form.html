@@ -1,0 +1,117 @@
+<div class="page-container">
+    <div class="header-section">
+        <button mat-icon-button routerLink="/customers" class="back-btn"><mat-icon>arrow_back</mat-icon></button>
+        <h1>{{ isEditMode ? 'Edit Customer' : 'New Customer' }}</h1>
+    </div>
+
+    <mat-card class="form-card glass-card">
+        <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+
+            <!-- Basic Details -->
+            <h3 class="section-title">Basic Information</h3>
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Full Name</mat-label>
+                    <input matInput formControlName="name" placeholder="E.g. John Doe">
+                    <mat-error *ngIf="customerForm.get('name')?.hasError('required')">Name is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Phone Number</mat-label>
+                    <input matInput formControlName="phoneNumber" placeholder="E.g. 123-456-7890">
+                    <mat-error *ngIf="customerForm.get('phoneNumber')?.hasError('required')">Phone number is
+                        required</mat-error>
+                    <mat-error *ngIf="customerForm.get('phoneNumber')?.hasError('pattern')">Invalid phone
+                        format</mat-error>
+                </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Address</mat-label>
+                <textarea matInput formControlName="address" rows="2" placeholder="Full address"></textarea>
+                <mat-error *ngIf="customerForm.get('address')?.hasError('required')">Address is required</mat-error>
+            </mat-form-field>
+
+            <mat-divider class="divider"></mat-divider>
+
+            <!-- Measurements Section -->
+            <h3 class="section-title">Measurements (inches)</h3>
+            <div formGroupName="measurements" class="measurements-grid">
+                <mat-form-field appearance="outline">
+                    <mat-label>Chest</mat-label>
+                    <input matInput type="number" formControlName="chest">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Waist</mat-label>
+                    <input matInput type="number" formControlName="waist">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Length</mat-label>
+                    <input matInput type="number" formControlName="length">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Shoulder</mat-label>
+                    <input matInput type="number" formControlName="shoulder">
+                </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Additional Measurement Notes</mat-label>
+                <input matInput formControlName="additionalInfo" placeholder="e.g. Inseam: 32">
+            </mat-form-field>
+
+            <mat-divider class="divider"></mat-divider>
+
+            <!-- Order Details -->
+            <h3 class="section-title">Order Details</h3>
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Delivery Date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="deliveryDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="customerForm.get('deliveryDate')?.hasError('required')">Delivery date is
+                        required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Order Notes</mat-label>
+                <textarea matInput formControlName="notes" rows="3"
+                    placeholder="Fabric details, references, etc."></textarea>
+            </mat-form-field>
+
+            <mat-divider class="divider"></mat-divider>
+
+            <!-- Photo Upload -->
+            <h3 class="section-title">Reference Photos</h3>
+            <div class="upload-area">
+                <button type="button" mat-stroked-button color="primary" (click)="fileInput.click()">
+                    <mat-icon>upload_file</mat-icon> Upload Images
+                </button>
+                <input type="file" hidden #fileInput (change)="onFileChange($event)" accept="image/*" multiple>
+            </div>
+
+            <div class="photo-gallery" *ngIf="photos.length > 0">
+                <div class="photo-item" *ngFor="let photo of photos; let i = index">
+                    <img [src]="photo" alt="Reference Image">
+                    <button type="button" mat-icon-button color="warn" class="remove-photo" (click)="removePhoto(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" mat-button routerLink="/customers">Cancel</button>
+                <button type="submit" mat-raised-button color="primary" class="save-btn">
+                    {{ isEditMode ? 'Update Customer' : 'Save Customer' }}
+                </button>
+            </div>
+
+        </form>
+    </mat-card>
+</div>
