@@ -12,9 +12,7 @@ const routes: Routes = [
     component: Customers,
     children: [
       { path: '', component: CustomerList },
-      { path: 'new', component: CustomerForm },
-      { path: ':id', component: CustomerDetail },
-      { path: ':id/edit', component: CustomerForm }
+      { path: ':id', component: CustomerDetail }
     ]
   }
 ];

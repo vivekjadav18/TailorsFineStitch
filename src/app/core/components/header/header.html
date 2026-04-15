@@ -5,15 +5,9 @@
   </div>
   <span class="spacer"></span>
 
-  <!-- Desktop Navigation -->
-  <div class="nav-links-desktop hidden-sm">
-    <button
-      mat-button
-      routerLink="/"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }"
-      aria-label="Home"
-    >
+  <div class="nav-links-desktop hidden-md">
+    <button mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+      aria-label="Home">
       Home
     </button>
     <button mat-button routerLink="/dashboard" routerLinkActive="active" aria-label="Dashboard">
@@ -22,71 +16,35 @@
     <button mat-button routerLink="/customers" routerLinkActive="active" aria-label="Customers">
       Customers
     </button>
-    <button mat-raised-button color="accent" routerLink="/customers/new" class="add-btn">
-      <mat-icon>person_add</mat-icon>
-      <span class="btn-text">Add Customer</span>
-    </button>
+
   </div>
 
+
   <!-- Mobile Menu Button -->
-  <button
-    mat-icon-button
-    class="mobile-menu-btn visible-sm"
-    (click)="toggleMobileMenu()"
-    [attr.aria-expanded]="isMobileMenuOpen()"
-    aria-controls="mobile-nav"
-    aria-label="Toggle navigation menu"
-  >
+  <button mat-icon-button class="mobile-menu-btn" (click)="toggleMobileMenu()" [attr.aria-expanded]="isMobileMenuOpen()"
+    aria-controls="mobile-nav" aria-label="Toggle navigation menu">
     <mat-icon>{{ isMobileMenuOpen() ? 'close' : 'menu' }}</mat-icon>
   </button>
 </mat-toolbar>
 
 <!-- Mobile Navigation Menu -->
-<nav
-  class="mobile-nav"
-  [class.open]="isMobileMenuOpen()"
-  id="mobile-nav"
-  [attr.aria-hidden]="!isMobileMenuOpen()"
->
-  <button
-    mat-button
-    routerLink="/"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-    (click)="closeMobileMenu()"
-    class="mobile-nav-item"
-  >
+@if (isMobileMenuOpen()) {
+<nav class="mobile-nav" id="mobile-nav">
+  <button mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+    (click)="closeMobileMenu()" class="mobile-nav-item">
     <mat-icon>home</mat-icon>
     <span>Home</span>
   </button>
-  <button
-    mat-button
-    routerLink="/dashboard"
-    routerLinkActive="active"
-    (click)="closeMobileMenu()"
-    class="mobile-nav-item"
-  >
+  <button mat-button routerLink="/dashboard" routerLinkActive="active" (click)="closeMobileMenu()"
+    class="mobile-nav-item">
     <mat-icon>dashboard</mat-icon>
     <span>Dashboard</span>
   </button>
-  <button
-    mat-button
-    routerLink="/customers"
-    routerLinkActive="active"
-    (click)="closeMobileMenu()"
-    class="mobile-nav-item"
-  >
+  <button mat-button routerLink="/customers" routerLinkActive="active" (click)="closeMobileMenu()"
+    class="mobile-nav-item">
     <mat-icon>people</mat-icon>
     <span>Customers</span>
   </button>
-  <button
-    mat-raised-button
-    color="accent"
-    routerLink="/customers/new"
-    (click)="closeMobileMenu()"
-    class="mobile-nav-item add-btn-mobile"
-  >
-    <mat-icon>person_add</mat-icon>
-    <span>Add Customer</span>
-  </button>
+
 </nav>
+}

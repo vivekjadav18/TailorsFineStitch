@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerService } from '../../core/services/customer.service';
 import { Customer } from '../../core/models/customer.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { CustomerForm } from '../customer-form/customer-form';
 
 @Component({
   selector: 'app-customer-detail',
@@ -19,7 +21,8 @@ export class CustomerDetail implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private customerService: CustomerService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -56,5 +59,23 @@ export class CustomerDetail implements OnInit {
       this.snackBar.open('Customer deleted successfully', 'Close', { duration: 3000 });
       this.router.navigate(['/customers']);
     }
+  }
+
+  editCustomer() {
+    if (!this.customer) return;
+    const dialogRef = this.dialog.open(CustomerForm, {
+      width: '100%',
+      maxWidth: '800px',
+      data: { id: this.customer.id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && this.customer) { // Updated if saved
+        this.customer = this.customerService.getCustomerById(this.customer.id);
+        if (this.customer) {
+            this.calculateCountdown();
+        }
+      }
+    });
   }
 }

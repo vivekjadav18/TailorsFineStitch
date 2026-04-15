@@ -5,7 +5,7 @@
             <h1>{{ customer.name }}</h1>
         </div>
         <div class="action-buttons">
-            <button mat-stroked-button color="primary" [routerLink]="['/customers', customer.id, 'edit']">
+            <button mat-stroked-button color="primary" (click)="editCustomer()">
                 <mat-icon>edit</mat-icon> Edit
             </button>
             <button mat-flat-button color="warn" (click)="deleteCustomer()">
