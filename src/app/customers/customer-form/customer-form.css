@@ -257,8 +257,18 @@
 }
 
 @media (max-width: 600px) {
-    .modern-form-content { padding: 1.5rem !important; }
+    .modern-form-content { padding: 1.25rem !important; }
     .form-row { gap: 1rem; }
-    .modern-dialog-actions { padding: 1.5rem !important; flex-direction: column-reverse; }
+    .measurements-layout {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+    .measurement-input-card {
+        padding: 1rem;
+    }
+    .measurement-input-card input {
+        font-size: 1.2rem;
+    }
+    .modern-dialog-actions { padding: 1rem !important; flex-direction: column-reverse; }
     .modern-dialog-actions button { width: 100%; }
 }
