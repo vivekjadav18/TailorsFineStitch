@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CustomerService } from '../core/services/customer.service';
 import { Customer } from '../core/models/customer.model';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { CustomerForm } from '../customers/customer-form/customer-form';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +16,15 @@ export class Dashboard implements OnInit, OnDestroy {
   upcomingDeliveries: Customer[] = [];
   private sub: Subscription = new Subscription();
 
-  constructor(private customerService: CustomerService) { }
+  constructor(private customerService: CustomerService, private dialog: MatDialog) { }
+
+  openCustomerForm() {
+    this.dialog.open(CustomerForm, {
+      width: '100%',
+      maxWidth: '800px',
+      data: {}
+    });
+  }
 
   ngOnInit() {
     this.sub = this.customerService.customers$.subscribe(customers => {

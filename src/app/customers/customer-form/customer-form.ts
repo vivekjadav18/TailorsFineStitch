@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerService } from '../../core/services/customer.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-customer-form',
@@ -19,9 +19,9 @@ export class CustomerForm implements OnInit {
   constructor(
     private fb: FormBuilder,
     private customerService: CustomerService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public dialogRef: MatDialogRef<CustomerForm>,
+    @Inject(MAT_DIALOG_DATA) public data: { id?: string }
   ) {
     this.customerForm = this.fb.group({
       name: ['', Validators.required],
@@ -40,8 +40,8 @@ export class CustomerForm implements OnInit {
   }
 
   ngOnInit() {
-    this.customerId = this.route.snapshot.paramMap.get('id');
-    if (this.customerId) {
+    if (this.data && this.data.id) {
+      this.customerId = this.data.id;
       this.isEditMode = true;
       const customer = this.customerService.getCustomerById(this.customerId);
       if (customer) {
@@ -55,7 +55,7 @@ export class CustomerForm implements OnInit {
         });
         this.photos = customer.photos || [];
       } else {
-        this.router.navigate(['/customers']);
+        this.dialogRef.close();
       }
     }
   }
@@ -93,7 +93,7 @@ export class CustomerForm implements OnInit {
         this.customerService.addCustomer(customerData);
         this.snackBar.open('Customer added successfully!', 'Close', { duration: 3000 });
       }
-      this.router.navigate(['/customers']);
+      this.dialogRef.close(true);
     } else {
       this.customerForm.markAllAsTouched();
     }

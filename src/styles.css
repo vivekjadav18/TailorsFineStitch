@@ -29,6 +29,7 @@
 /* Responsive spacing and typography scales */
 html {
   font-size: 14px;
+  scroll-behavior: smooth; /* Smooth transitions */
 }
 
 @media (min-width: 600px) {
@@ -46,7 +47,7 @@ html {
 /* Reset and Base Styles */
 html,
 body {
-  height: 100%;
+  min-height: 100vh; /* Changed from height 100% */
   margin: 0;
   padding: 0;
   font-family:
@@ -60,6 +61,8 @@ body {
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-y: auto; /* Ensure vertical scroll is allowed */
+  scroll-behavior: smooth;
 }
 
 *,
@@ -118,12 +121,35 @@ p {
   flex-direction: column;
   min-height: 100vh;
   background-color: var(--background-color);
+  overflow-x: hidden; /* Prevent horizontal body scroll */
 }
 
 .main-content {
   flex: 1 0 auto;
   display: flex;
   flex-direction: column;
+  width: 100%;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px; /* Increased to 12px for better visibility */
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5c6bc0; /* Primary-ish color for thumb */
+  border-radius: 10px;
+  border: 3px solid #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f51b5;
 }
 
 /* Button Styles */
@@ -180,6 +206,32 @@ mat-card-header {
 mat-card-content {
   padding: 0;
   color: var(--text-secondary);
+}
+
+/* Global Table & Scroll Utilities */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1rem;
+  scrollbar-width: thin; /* Firefox */
+}
+
+/* Prevent layout breaking on very small screens */
+.page-container, .container {
+  /* Removed overflow-x: hidden as it can block scrolling */
+  position: relative;
+}
+
+/* Material Dialog Scroll fix */
+.cdk-overlay-pane {
+  max-width: 95vw !important;
+}
+
+.mat-mdc-dialog-content {
+  max-height: 75vh !important;
+  overflow-y: auto !important;
 }
 
 /* Responsive Container Utilities */
